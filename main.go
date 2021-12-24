@@ -2,16 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/xormplus/xorm"
-	"golang.org/x/sync/errgroup"
 	"library/libraryDemo/cs"
 	"library/libraryDemo/middleware"
 	"library/libraryDemo/model"
 	"library/libraryDemo/rest"
 	"library/libraryDemo/rest/wechat"
 	"library/libraryDemo/router"
+
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/xormplus/xorm"
+	"golang.org/x/sync/errgroup"
 
 	"net/http"
 	"time"
@@ -23,7 +24,7 @@ var (
 
 func main() {
 	//将数据库拉起
-	params := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=true", "lib", "lib123", "47.103.212.217:3306", "libDemo")
+	params := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=true", "welfare", "welfare2021", "39.100.19.104:3306", "welfare")
 	var err error
 	//连接数据库
 	cs.Sql, err = xorm.NewEngine("mysql", params)
