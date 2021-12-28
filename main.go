@@ -39,12 +39,8 @@ func main() {
 	root.Use(middleware.CorsHandler())
 	router.Register(root, wechat.User)
 	router.Register(root, rest.Book)
-	router.Register(root, rest.Table)
-	router.Register(root, rest.Library)
 	router.Register(root, rest.Message)
-	router.Register(root, rest.Notes)
-	router.Register(root, rest.Cabinet)
-	router.Register(root, rest.Mybooks)
+
 	server := &http.Server{
 		Addr:         ":3001",
 		Handler:      app,
