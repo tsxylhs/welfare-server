@@ -20,29 +20,30 @@ type Base struct {
 //彩票类型
 type Lottery struct {
 	Base          `xorm:"extends"`
-	LotteryId     string `json:"lottery_id" form "lottery_id"`
-	LotteryName   string `json:"lottery_name" form "lottery_name"`
-	LotteryTypeId string `json:"lottery_type_id" form "lottery_name"`
-	remarks       string `json:"remarks" form:"remarks"`
+	LotteryId     string `json:"lottery_id" form:"lottery_id"`
+	LotteryName   string `json:"lottery_name" form:"lottery_name"`
+	LotteryTypeId string `json:"lottery_type_id" form:"lottery_name"`
+	Remarks       string `json:"remarks" form:"remarks"`
 }
 
 //彩票站
 type LotteryStation struct {
 	Base     `xorm:"extends"`
 	Name     string  `xorm:"name" form:"name"`
-	Location string  `xorm:"location" form "location"`
-	ImageUrl string  `xorm:"image_url", form "image_url"`
-	Mobile   string  `json:"mobile" form "mobile"`
-	Lot      float64 `xorm:"lot" form "lot"` //经度
-	Lat      float64 `xorm:"lat" form "lat"`
+	Location string  `xorm:"location" form:"location"`
+	ImageUrl string  `xorm:"image_url" form:"image_url"`
+	Mobile   string  `json:"mobile" form:"mobile"`
+	Lot      float64 `xorm:"lot" form:"lot"` //经度
+	Lat      float64 `xorm:"lat" form:"lat"`
 }
 
 //我的彩票
 type MyLottery struct {
 	Base      `xorm:"extends"`
 	UserId    int64  `xorm:"user_id" form:"userId"`
-	LotteryId string `json:"lottery_id" form "lottery_id"`
-	number    string `xorm:"number" form:"number"` //购彩记录
+	LotteryId string `json:"lottery_id" form:"lottery_id"`
+	Number    string `xorm:"number" form:"number"` //购彩记录
+	Tag       string `xorm:"tag" form:"tag"`
 }
 
 //微信用户

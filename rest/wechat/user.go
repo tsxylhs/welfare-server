@@ -1,10 +1,11 @@
 package wechat
 
 import (
-	"github.com/gin-gonic/gin"
 	"library/libraryDemo/model"
 	"library/libraryDemo/service"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 type user int

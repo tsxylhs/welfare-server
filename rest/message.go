@@ -2,8 +2,9 @@ package rest
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 type message int

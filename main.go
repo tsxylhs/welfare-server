@@ -38,7 +38,8 @@ func main() {
 	root := app.Group("/api")
 	root.Use(middleware.CorsHandler())
 	router.Register(root, wechat.User)
-	router.Register(root, rest.Book)
+	router.Register(root, rest.Lottery)
+	router.Register(root, rest.LotteryStation)
 	router.Register(root, rest.Message)
 
 	server := &http.Server{
