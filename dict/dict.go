@@ -9,7 +9,7 @@ const (
 
 const (
 
-	// Ebl小程序
+	// 彩票小程序
 	LibrarayId    = "wxf18ea67803d92fcd"
 	LibrarySecret = "95fcccc4a80190e1167558245a82e81b"
 )
