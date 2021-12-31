@@ -16,7 +16,7 @@ type Base struct {
 	CreatedAt time.Time `xorm:"created" json:"createdAt"`
 	DeletedAt time.Time `xorm:"deleted" json:"-"`
 }
-
+type
 //彩票类型
 type Lottery struct {
 	Base          `xorm:"extends"`
@@ -35,6 +35,26 @@ type LotteryStation struct {
 	Mobile   string  `json:"mobile" form:"mobile"`
 	Lot      float64 `xorm:"lot" form:"lot"` //经度
 	Lat      float64 `xorm:"lat" form:"lat"`
+}
+
+type LotteryOpenMessage struct {
+	Base     `xorm:"extends"`
+	LotteryId string `json:"lottery_id" form:"lottery_id"`
+    LotteryName string  `json: "lottery_name" form: "lottery_name"`
+	LotteryRes string `json:"lottery_res" form:"lottery_res"`
+	LotteryNo  string  `json:"lottery_no" form:"lottery_no"`
+	LotteryDate string `json:"lottery_date" form:"lottery_date"`
+	LotteryExdate string `json:"lottery_exdate" form:"lottery_exdate"`
+	LotterySaleAmount string `json:"lottery_sale_amount" form:"lottery_sale_amount"`
+	LotteryPoolAmount string `json:"lottery_pool_amount" form:"lottery_pool_amount"`
+	LotteryPrize  LotteryPrize  `json:"lottery_prize" form:"lottery_prize"`
+}
+
+type LotteryPrize struct{
+      PrizeName string `json:"prize_name" form:"prize_name"`
+      PirzeNum string `json:"prize_num" form:"prize_num"`
+      PirzeAmount string `json:"prize_amount" form:"prize_amount"`
+	  PirzeRequire string `json:"prize_require" form:"prize_require"`
 }
 
 //我的彩票
@@ -89,6 +109,8 @@ func NewBD() {
 		new(User),
 		new(Lottery),
 		new(LotteryStation),
+		new(LotteryOpenMessage),
+		new(LotteryPrize),
 		new(Message)); err != nil {
 		fmt.Print("初始化失败", err)
 	}

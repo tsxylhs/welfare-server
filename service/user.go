@@ -83,21 +83,17 @@ func (t user) Login(form *model.User) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		err := errors.New("登录失败当前状态吗" + strconv.Itoa(resp.StatusCode))
-
+		err := errors.New("登录失败当前状态码" + strconv.Itoa(resp.StatusCode))
 		return err
 	}
 
 	if err != nil {
-
 		return err
 	}
 	if err = json.Unmarshal(response, form); err != nil {
-
 		return err
 	}
 	t.Decrypt(form)
-
 	user := &model.User{}
 	if _, err := cs.Sql.Where("open_id = ?", form.OpenId).Get(user); err != nil {
 		return err
