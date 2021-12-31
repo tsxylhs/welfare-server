@@ -7,7 +7,7 @@ import (
 
 type message int
 
-var Messages message
+var Messages /* message */
 
 func (message) Get(form *model.Message) error {
 	// 更新数据库中的记录

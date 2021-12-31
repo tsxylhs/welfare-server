@@ -5,7 +5,6 @@ import (
 	"lottery/welfare/cs"
 	"lottery/welfare/middleware"
 	"lottery/welfare/model"
-	"lottery/welfare/reqUtils"
 	"lottery/welfare/rest"
 	"lottery/welfare/rest/wechat"
 	"lottery/welfare/router"
@@ -42,7 +41,7 @@ func main() {
 	router.Register(root, rest.Lottery)
 	router.Register(root, rest.LotteryStation)
 	router.Register(root, rest.Message)
-	reqUtils.LotteryReq.LotteryTypes()
+	//reqUtils.LotteryReq.LotteryTypes()
 	server := &http.Server{
 		Addr:         ":3001",
 		Handler:      app,

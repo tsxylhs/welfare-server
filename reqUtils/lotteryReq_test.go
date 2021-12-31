@@ -3,6 +3,6 @@ package reqUtils
 import "testing"
 
 func Test_lotteryTypes(t *testing.T) {
-	LotteryTypes()
+	LotteryReq.LotteryTypes()
 	t.Log()
 }
