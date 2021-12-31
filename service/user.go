@@ -8,9 +8,9 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"library/libraryDemo/cs"
-	"library/libraryDemo/dict"
-	"library/libraryDemo/model"
+	"lottery/welfare/cs"
+	"lottery/welfare/dict"
+	"lottery/welfare/model"
 	"net/http"
 	"strconv"
 )

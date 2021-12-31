@@ -1,13 +1,13 @@
 package service
 
 import (
-	"library/libraryDemo/cs"
-	"library/libraryDemo/model"
+	"lottery/welfare/cs"
+	"lottery/welfare/model"
 )
 
-var Messages message
-
 type message int
+
+var Messages message
 
 func (message) Get(form *model.Message) error {
 	// 更新数据库中的记录

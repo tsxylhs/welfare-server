@@ -1,4 +1,4 @@
-module library/libraryDemo
+module lottery/welfare
 
 go 1.13
 

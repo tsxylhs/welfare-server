@@ -2,8 +2,8 @@ package rest
 
 import (
 	"fmt"
-	"library/libraryDemo/model"
-	"library/libraryDemo/service"
+	"lottery/welfare/model"
+	"lottery/welfare/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

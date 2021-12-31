@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"library/libraryDemo/cs"
-	"library/libraryDemo/middleware"
-	"library/libraryDemo/model"
-	"library/libraryDemo/rest"
-	"library/libraryDemo/rest/wechat"
-	"library/libraryDemo/router"
+	"lottery/welfare/cs"
+	"lottery/welfare/middleware"
+	"lottery/welfare/model"
+	"lottery/welfare/reqUtils"
+	"lottery/welfare/rest"
+	"lottery/welfare/rest/wechat"
+	"lottery/welfare/router"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -41,7 +42,7 @@ func main() {
 	router.Register(root, rest.Lottery)
 	router.Register(root, rest.LotteryStation)
 	router.Register(root, rest.Message)
-
+	reqUtils.LotteryReq.LotteryTypes()
 	server := &http.Server{
 		Addr:         ":3001",
 		Handler:      app,

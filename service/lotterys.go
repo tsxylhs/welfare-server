@@ -1,15 +1,15 @@
 package service
 
 import (
-	"library/libraryDemo/cs"
-	"library/libraryDemo/model"
+	"lottery/welfare/cs"
+	"lottery/welfare/model"
 )
 
-var LotteryStations lotteryStations
+type lotterys int
 
-type lotteryStations int
+var Lotterys lotterys
 
-func (lotteryStations) Get(form *model.LotteryStation) error {
+func (lotterys) Get(form *model.Lottery) error {
 	// 更新数据库中的记录
 	if _, err := cs.Sql.ID(form.ID).Get(form); err != nil {
 		return err
@@ -19,7 +19,7 @@ func (lotteryStations) Get(form *model.LotteryStation) error {
 }
 
 // list 获取多个项目列表
-func (lotteryStations) List(id int64, page *model.Page, list *[]model.LotteryStation) error {
+func (lotterys) List(id int64, page *model.Page, list *[]model.Lottery) error {
 	// 分页查询
 	cs.Sql.ShowSQL(true)
 	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Where("library_id=?", id).Desc("created_at").FindAndCount(list); err != nil {
@@ -32,7 +32,7 @@ func (lotteryStations) List(id int64, page *model.Page, list *[]model.LotterySta
 }
 
 // Update 更新新的纪录
-func (lotteryStations) Update(form *model.LotteryStation) error {
+func (lotterys) Update(form *model.Lottery) error {
 	if _, err := cs.Sql.Update(form, form); err != nil {
 
 		return err
@@ -42,7 +42,7 @@ func (lotteryStations) Update(form *model.LotteryStation) error {
 }
 
 // Delete 删除记录
-func (t lotteryStations) Delete(form *model.LotteryStation) error {
+func (lotterys) Delete(form *model.Lottery) error {
 	// 删除记录
 	if _, err := cs.Sql.ID(form.ID).Delete(form); err != nil {
 
@@ -53,7 +53,7 @@ func (t lotteryStations) Delete(form *model.LotteryStation) error {
 }
 
 // Receive 保存记录
-func (t lotteryStations) Save(form *model.LotteryStation) error {
+func (lotterys) Save(form *model.Lottery) error {
 	if form.ID == 0 {
 	}
 	if _, err := cs.Sql.Insert(form); err != nil {
