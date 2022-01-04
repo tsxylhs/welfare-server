@@ -92,7 +92,6 @@ func (lotteryReq) lotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.Lo
 		panic(err.Error())
 	}
 	if response.Reason == "查询成功" {
-		response.LotteryOpenQuery
 
 	}
 	return response

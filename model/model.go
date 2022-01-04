@@ -120,6 +120,7 @@ type Message struct {
 }
 
 type Awarding struct {
+	Base           `xorm:"extends"`
 	LotteryID      string      `json:"lottery_id"`
 	LotteryName    string      `json:"lottery_name"`
 	LotteryNo      string      `json:"lottery_no"`
