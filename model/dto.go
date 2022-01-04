@@ -5,3 +5,8 @@ type SelectLottery struct {
 	LotteryNum    string
 	LotteryOpenNo string
 }
+
+type SelectQuery struct {
+	LotteryId string
+	LotteryNo string
+}

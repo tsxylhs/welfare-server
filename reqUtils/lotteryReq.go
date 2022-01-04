@@ -76,6 +76,32 @@ func (lotteryReq) LotteryBonus(selectlottery model.SelectLottery) (resp *reqMode
 
 }
 
+//历史开奖查询
+func (lotteryReq) lotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.LotteryQuery) {
+	params := url.Values{}
+	params.Set("key", lotteryKey)
+	params.Set("lottery_id", selectQuery.LotteryId)
+	params.Set("lottery_no", selectQuery.LotteryNo)
+	respByte, err := GetReq(params, lotteryQuery)
+	if err != nil {
+		panic(err.Error())
+	}
+	response := &reqModel.LotteryQuery{}
+	err = json.Unmarshal(respByte, response)
+	if err != nil {
+		panic(err.Error())
+	}
+	if response.Reason == "查询成功" {
+		response.LotteryOpenQuery
+
+	}
+	return response
+
+}
+
+//开奖结果查询
+func (lotteryReq) lotteryHistory()
+
 func GetReq(params url.Values, path string) (respResult []byte, err error) {
 
 	Url, err := url.Parse(path)

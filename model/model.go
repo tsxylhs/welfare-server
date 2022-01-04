@@ -37,6 +37,7 @@ type LotteryStation struct {
 	Lat      float64 `xorm:"lat" form:"lat"`
 }
 
+//兑奖记录
 type LotteryOpenMessage struct {
 	Base              `xorm:"extends"`
 	LotteryId         string       `json:"lottery_id" form:"lottery_id"`
@@ -48,6 +49,20 @@ type LotteryOpenMessage struct {
 	LotterySaleAmount string       `json:"lottery_sale_amount" form:"lottery_sale_amount"`
 	LotteryPoolAmount string       `json:"lottery_pool_amount" form:"lottery_pool_amount"`
 	LotteryPrize      LotteryPrize `json:"lottery_prize" form:"lottery_prize"`
+}
+
+//开奖记录查询
+type LotteryOpenQuery struct {
+	Base              `xorm:"extends"`
+	LotteryId         string         `json:"lottery_id" form:"lottery_id"`
+	LotteryName       string         `json: "lottery_name" form: "lottery_name"`
+	LotteryRes        string         `json:"lottery_res" form:"lottery_res"`
+	LotteryNo         string         `json:"lottery_no" form:"lottery_no"`
+	LotteryDate       string         `json:"lottery_date" form:"lottery_date"`
+	LotteryExdate     string         `json:"lottery_exdate" form:"lottery_exdate"`
+	LotterySaleAmount string         `json:"lottery_sale_amount" form:"lottery_sale_amount"`
+	LotteryPoolAmount string         `json:"lottery_pool_amount" form:"lottery_pool_amount"`
+	LotteryPrize      []LotteryPrize `xorm:"lottery_prize" json:"lottery_prize" form:"lottery_prize"`
 }
 
 type LotteryPrize struct {
@@ -127,6 +142,7 @@ func NewBD() {
 		new(Lottery),
 		new(LotteryStation),
 		new(LotteryOpenMessage),
+		new(LotteryOpenQuery),
 		new(LotteryPrize),
 		new(Message)); err != nil {
 		fmt.Print("初始化失败", err)
