@@ -79,6 +79,7 @@ func (lottery) save(c *gin.Context) {
 func (lottery) updatelottery(c *gin.Context) {
 
 }
+
 func (lottery) Register(r *gin.RouterGroup) {
 	r.POST("/v1/lottery/update", Lottery.updatelottery)
 	r.GET("/v1/lottery", Lottery.list)

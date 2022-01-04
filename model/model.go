@@ -121,20 +121,20 @@ type Message struct {
 
 type Awarding struct {
 	Base           `xorm:"extends"`
-	LotteryID      string      `json:"lottery_id"`
-	LotteryName    string      `json:"lottery_name"`
-	LotteryNo      string      `json:"lottery_no"`
-	LotteryDate    string      `json:"lottery_date"`
-	RealLotteryRes string      `json:"real_lottery_res"`
-	LotteryRes     string      `json:"lottery_res"`
-	InMoney        string      `json:"in_money"`
-	BuyRedBallNum  string      `json:"buy_red_ball_num"`
-	BuyBlueBallNum string      `json:"buy_blue_ball_num"`
-	HitRedBallNum  string      `json:"hit_red_ball_num"`
-	HitBlueBallNum string      `json:"hit_blue_ball_num"`
-	IsPrize        string      `json:"is_prize"`
-	PrizeMsg       string      `json:"prize_msg"`
-	LotteryPrize   interface{} `json:"lottery_prize"`
+	LotteryID      string        `json:"lottery_id"`
+	LotteryName    string        `json:"lottery_name"`
+	LotteryNo      string        `json:"lottery_no"`
+	LotteryDate    string        `json:"lottery_date"`
+	RealLotteryRes string        `json:"real_lottery_res"`
+	LotteryRes     string        `json:"lottery_res"`
+	InMoney        string        `json:"in_money"`
+	BuyRedBallNum  string        `json:"buy_red_ball_num"`
+	BuyBlueBallNum string        `json:"buy_blue_ball_num"`
+	HitRedBallNum  string        `json:"hit_red_ball_num"`
+	HitBlueBallNum string        `json:"hit_blue_ball_num"`
+	IsPrize        string        `json:"is_prize"`
+	PrizeMsg       string        `json:"prize_msg"`
+	LotteryPrize   []interface{} `json:"lottery_prize"`
 }
 
 func NewBD() {
@@ -145,6 +145,8 @@ func NewBD() {
 		new(LotteryOpenMessage),
 		new(LotteryOpenQuery),
 		new(LotteryPrize),
+		new(Awarding),
+		new(MyLottery),
 		new(Message)); err != nil {
 		fmt.Print("初始化失败", err)
 	}

@@ -15,7 +15,6 @@ func (awardings) Get(form *model.Awarding) error {
 	if _, err := cs.Sql.ID(form.ID).Get(form); err != nil {
 		return err
 	}
-
 	return nil
 }
 
@@ -55,7 +54,8 @@ func (t awardings) Delete(form *model.Awarding) error {
 
 // Receive 保存记录
 func (t awardings) Save(form *model.Awarding) error {
-	if form.ID == 0 {
+	if form == nil || form.ID == 0 {
+		form.BeforeInsert()
 	}
 	if _, err := cs.Sql.Insert(form); err != nil {
 		return err

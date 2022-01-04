@@ -3,7 +3,9 @@ package rest
 // 兑奖
 import (
 	"fmt"
+	"log"
 	"lottery/welfare/model"
+	"lottery/welfare/reqUtils"
 	"lottery/welfare/service"
 	"strconv"
 
@@ -80,6 +82,28 @@ func (awarding) save(c *gin.Context) {
 func (awarding) updateawarding(c *gin.Context) {
 
 }
+func (awarding) award(c *gin.Context) {
+	selectlottery := &model.SelectLottery{}
+	if err := c.Bind(selectlottery); err != nil {
+		c.String(400, "参数绑定错误")
+		c.Abort()
+		return
+	}
+	awarding := reqUtils.LotteryReq.LotteryBonus(selectlottery)
+	if awarding == nil {
+		c.String(500, "服务器错误")
+		c.Abort()
+		return
+	}
+	err := service.Awardings.Save(awarding)
+	if err != nil {
+		log.Fatal("insert error", err.Error())
+	}
+	r := map[string]interface{}{}
+	r["data"] = awarding
+	c.JSON(200, r)
+
+}
 func (awarding) Register(r *gin.RouterGroup) {
 	r.POST("/v1/awarding/update", Awarding.updateawarding)
 	r.GET("/v1/awarding", Awarding.list)
@@ -87,4 +111,5 @@ func (awarding) Register(r *gin.RouterGroup) {
 	r.PUT("/v1/awarding/:id", Awarding.put)
 	r.DELETE("/v1/awarding/:id", Awarding.delete)
 	r.POST("/v1/awarding", Awarding.save)
+	r.POST("/v1/awarding/award", Awarding.award)
 }

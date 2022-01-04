@@ -3,6 +3,7 @@ package reqUtils
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"lottery/welfare/model"
 	"lottery/welfare/reqUtils/reqModel"
 	"lottery/welfare/service"
@@ -13,7 +14,7 @@ import (
 var (
 	openId = "JH7c50653df943461c58e0ceaa9eb6b607"
 
-	lotteryKey = "5cef4e823e*71**4968fce4cf622d3c7"
+	lotteryKey = "5cef4e823e071004968fce4cf622d3c7"
 
 	//彩票种类
 	lotteryTyps = "http://apis.juhe.cn/lottery/types"
@@ -54,7 +55,7 @@ func (lotteryReq) LotteryTypes() {
 }
 
 //中奖计算器
-func (lotteryReq) LotteryBonus(selectlottery model.SelectLottery) (resp *reqModel.Awarding) {
+func (lotteryReq) LotteryBonus(selectlottery *model.SelectLottery) (resp *model.Awarding) {
 
 	params := url.Values{}
 	params.Set("key", lotteryKey)
@@ -71,8 +72,14 @@ func (lotteryReq) LotteryBonus(selectlottery model.SelectLottery) (resp *reqMode
 	if err != nil {
 		panic(err.Error())
 	}
-	//todo  保存兑奖记录
-	return response
+	if response.Reason == "执行成功" {
+
+		return &response.Awarding
+
+	} else {
+		log.Fatal("response.Reason", response.Reason)
+	}
+	return nil
 
 }
 
@@ -99,7 +106,9 @@ func (lotteryReq) lotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.Lo
 }
 
 //开奖结果查询
-func (lotteryReq) lotteryHistory()
+func (lotteryReq) lotteryHistory() {
+
+}
 
 func GetReq(params url.Values, path string) (respResult []byte, err error) {
 
