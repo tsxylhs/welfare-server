@@ -84,7 +84,7 @@ func (lotteryReq) LotteryBonus(selectlottery *model.SelectLottery) (resp *model.
 }
 
 //历史开奖查询
-func (lotteryReq) lotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.LotteryQuery) {
+func (lotteryReq) LotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.LotteryQuery) {
 	params := url.Values{}
 	params.Set("key", lotteryKey)
 	params.Set("lottery_id", selectQuery.LotteryId)
@@ -99,14 +99,16 @@ func (lotteryReq) lotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.Lo
 		panic(err.Error())
 	}
 	if response.Reason == "查询成功" {
-
+		return response
+	} else {
+		log.Fatal("查询失败：", response.Reason)
+		return nil
 	}
-	return response
 
 }
 
 //开奖结果查询
-func (lotteryReq) lotteryHistory() {
+func (lotteryReq) LotteryHistory() {
 
 }
 
