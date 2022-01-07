@@ -79,6 +79,8 @@ func (lotteryOpenQuery) save(c *gin.Context) {
 func (lotteryOpenQuery) updatelotteryOpenQuery(c *gin.Context) {
 
 }
+
+//开奖查询
 func (lotteryOpenQuery) Register(r *gin.RouterGroup) {
 	r.POST("/v1/lotteryOpenQuery/update", LotteryOpenQuery.updatelotteryOpenQuery)
 	r.GET("/v1/lotteryOpenQuery", LotteryOpenQuery.list)

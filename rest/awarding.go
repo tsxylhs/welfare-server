@@ -104,6 +104,8 @@ func (awarding) award(c *gin.Context) {
 	c.JSON(200, r)
 
 }
+
+//兑奖历史
 func (awarding) Register(r *gin.RouterGroup) {
 	r.POST("/v1/awarding/update", Awarding.updateawarding)
 	r.GET("/v1/awarding", Awarding.list)
