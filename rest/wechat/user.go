@@ -19,7 +19,6 @@ func (user) login(c *gin.Context) {
 		c.Abort()
 	}
 	if err := service.User.Login(form); err != nil {
-
 		c.String(500, "内部服务器错误")
 		c.Abort()
 		return
