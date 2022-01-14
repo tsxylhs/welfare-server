@@ -2,11 +2,13 @@ package rest
 
 import (
 	"fmt"
+	"log"
 	"lottery/welfare/model"
 	"lottery/welfare/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/xuri/excelize/v2"
 )
 
 type lottery int
@@ -79,6 +81,38 @@ func (lottery) save(c *gin.Context) {
 func (lottery) updatelottery(c *gin.Context) {
 
 }
+func (lottery) uploadFile(c *gin.Context) {
+	file_ex, fileHeader, err := c.Request.FormFile("file")
+	if err != nil {
+		c.String(400, "文件读取失败")
+	}
+	log.Fatal("上传的文件：", fileHeader.Filename)
+	//ex
+	excelizeFile, err := excelize.OpenReader(file_ex)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() {
+		if err := excelizeFile.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
+	rows, err := excelizeFile.GetRows("sheet1")
+	if err != nil {
+		log.Fatal(err)
+	}
+	for index, values := range rows {
+		if index == 0 {
+			continue
+		}
+		for i, val := range values {
+			fmt.Println("i", i)
+			fmt.Println("val", val)
+		}
+	}
+	c.JSON(200, "success")
+
+}
 
 //彩票店
 func (lottery) Register(r *gin.RouterGroup) {
@@ -88,4 +122,6 @@ func (lottery) Register(r *gin.RouterGroup) {
 	r.PUT("/v1/lottery/:id", Lottery.put)
 	r.DELETE("/v1/lottery/:id", Lottery.delete)
 	r.POST("/v1/lottery", Lottery.save)
+	r.POST("/v1/lottery/uploadFile", Lottery.uploadFile)
+
 }

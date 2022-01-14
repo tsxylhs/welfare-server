@@ -24,7 +24,6 @@ replace (
 )
 
 require (
-	github.com/360EntSecGroup-Skylar/excelize/v2 v2.1.0
 	github.com/Chronokeeper/anyxml v0.0.0-20160530174208-54457d8e98c6 // indirect
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
 	github.com/CloudyKit/jet v2.1.2+incompatible // indirect
@@ -61,13 +60,13 @@ require (
 	github.com/ugorji/go v1.1.7 // indirect
 	github.com/xormplus/core v0.0.0-20181016121923-6bfce2eb8867 // indirect
 	github.com/xormplus/xorm v0.0.0-20181105071520-4fd8a981b629
+	github.com/xuri/excelize/v2 v2.5.0
 	go.uber.org/zap v1.10.0
-	golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553
+	golang.org/x/net v0.0.0-20210726213435-c6fcb2dbf985
 	golang.org/x/sync v0.0.0-20181108010431-42b317875d0f
-	golang.org/x/text v0.3.2
+	golang.org/x/text v0.3.6
 	golang.org/x/xerrors v0.0.0-00010101000000-000000000000 // indirect
 	gopkg.in/flosch/pongo2.v3 v3.0.0-20141028000813-5e81b817a0c4 // indirect
 	gopkg.in/go-playground/validator.v8 v8.18.2 // indirect
-
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 )
