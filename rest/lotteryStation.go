@@ -19,7 +19,7 @@ var LotteryStation lotteryStation
 func (lotteryStation) list(c *gin.Context) {
 
 	page := &model.Page{}
-	if err := c.Bind(page); err != nil {
+	if err := c.BindJSON(page); err != nil {
 		c.String(400, "id 参数错误")
 		c.Abort()
 		return

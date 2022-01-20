@@ -156,7 +156,7 @@ type Page struct {
 	P   int    `json:"p" form:"p"`
 	Ps  int    `json:"ps" form:"ps"`
 	Cnt int64  `json:"cnt"`
-	K   string `josn:"k"`
+	K   string `json:"k"`
 	Pc  int    `json:"pc"`
 	Od  string `json:"od,omitempty"`
 }
