@@ -5,6 +5,7 @@ import (
 	"log"
 	"lottery/welfare/model"
 	"lottery/welfare/service"
+	"path"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -82,13 +83,19 @@ func (lottery) updatelottery(c *gin.Context) {
 
 }
 func (lottery) uploadFile(c *gin.Context) {
-	file_ex, fileHeader, err := c.Request.FormFile("file")
+	_, fileHeader, err := c.Request.FormFile("file")
 	if err != nil {
 		c.String(400, "文件读取失败")
 	}
-	log.Fatal("上传的文件：", fileHeader.Filename)
+	log.Print("上传的文件：", fileHeader.Filename)
 	//ex
-	excelizeFile, err := excelize.OpenReader(file_ex)
+	dst := path.Join("./upload", fileHeader.Filename)
+	err = c.SaveUploadedFile(fileHeader, dst)
+	if err != nil {
+		c.String(500, "文件存储失败！")
+	}
+
+	excelizeFile, err := excelize.OpenFile(dst)
 	if err != nil {
 		log.Fatal(err)
 	}
