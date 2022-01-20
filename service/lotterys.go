@@ -19,10 +19,10 @@ func (lotterys) Get(form *model.Lottery) error {
 }
 
 // list 获取多个项目列表
-func (lotterys) List(id int64, page *model.Page, list *[]model.Lottery) error {
+func (lotterys) List(page *model.Page, list *[]model.Lottery) error {
 	// 分页查询
 	cs.Sql.ShowSQL(true)
-	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Where("library_id=?", id).Desc("created_at").FindAndCount(list); err != nil {
+	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Desc("created_at").FindAndCount(list); err != nil {
 		return err
 	} else {
 		page = page.GetPager(cnt)

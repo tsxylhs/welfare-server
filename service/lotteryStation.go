@@ -19,10 +19,10 @@ func (lotteryStations) Get(form *model.LotteryStation) error {
 }
 
 // list 获取多个项目列表
-func (lotteryStations) List(id int64, page *model.Page, list *[]model.LotteryStation) error {
+func (lotteryStations) List(page *model.Page, list *[]model.LotteryStation) error {
 	// 分页查询
 	cs.Sql.ShowSQL(true)
-	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Where("library_id=?", id).Desc("created_at").FindAndCount(list); err != nil {
+	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Desc("created_at").FindAndCount(list); err != nil {
 		return err
 	} else {
 		page = page.GetPager(cnt)
@@ -52,9 +52,10 @@ func (t lotteryStations) Delete(form *model.LotteryStation) error {
 	return nil
 }
 
-// Receive 保存记录
+// save 保存记录
 func (t lotteryStations) Save(form *model.LotteryStation) error {
 	if form.ID == 0 {
+		form.BeforeInsert()
 	}
 	if _, err := cs.Sql.Insert(form); err != nil {
 		return err
