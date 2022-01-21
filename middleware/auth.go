@@ -1,7 +1,10 @@
 package middleware
 
 import (
+	"bytes"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"io/ioutil"
 	"strings"
 )
 
@@ -26,4 +29,19 @@ func CorsHandler() func(c *gin.Context) {
 		c.Next()
 		return
 	}
+}
+
+func Middleware() gin.HandlerFunc {
+
+	return func(ctx *gin.Context) {
+		data, err := ctx.GetRawData()
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		//过滤
+
+		ctx.Request.Body = ioutil.NopCloser(bytes.NewBuffer(data)) // 关键点
+		ctx.Next()
+	}
+
 }

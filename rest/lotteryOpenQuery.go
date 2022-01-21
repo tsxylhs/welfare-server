@@ -14,12 +14,6 @@ type lotteryOpenQuery int
 var LotteryOpenQuery lotteryOpenQuery
 
 func (lotteryOpenQuery) list(c *gin.Context) {
-	libraryid, err := strconv.ParseInt(c.Query("libraryId"), 10, 64)
-	if err != nil {
-		c.String(400, "id 参数错误")
-		c.Abort()
-		return
-	}
 	page := &model.Page{}
 	if err := c.Bind(page); err != nil {
 		c.String(400, "id 参数错误")
@@ -27,7 +21,7 @@ func (lotteryOpenQuery) list(c *gin.Context) {
 		return
 	}
 	listlotteryOpenQuerys := &[]model.LotteryOpenQuery{}
-	if err := service.LotteryOpenQuerys.List(libraryid, page, listlotteryOpenQuerys); err != nil {
+	if err := service.LotteryOpenQuerys.List(page, listlotteryOpenQuerys); err != nil {
 		c.String(500, "id 参数错误")
 		c.Abort()
 		return

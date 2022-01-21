@@ -1,6 +1,8 @@
 package service
 
 import (
+	"github.com/mitchellh/mapstructure"
+	"log"
 	"lottery/welfare/cs"
 	"lottery/welfare/model"
 )
@@ -8,6 +10,10 @@ import (
 type lotteryStations int
 
 var LotteryStations lotteryStations
+var (
+	selectSql      = "select *, ROUND(6378.138*2*ASIN(SQRT(POW(SIN((31.17406175605199*PI()/180-lat*PI()/180)/2),2)+COS(31.17406175605199*PI()/180)*COS(lat*PI()/180)*POW(SIN((121.40638221320846*PI()/180-lng*PI()/180)/2),2)))*1000) AS distance from lottery_station having distance <50000 order by distance asc"
+	selectSqlParam = "select *, ROUND(6378.138*2*ASIN(SQRT(POW(SIN(( ? *PI()/180-lat*PI()/180)/2),2)+COS(? *PI()/180)*COS(lat*PI()/180)*POW(SIN((?*PI()/180-lng*PI()/180)/2),2)))*1000) AS distance from lottery_station having distance <? order by distance asc"
+)
 
 func (lotteryStations) Get(form *model.LotteryStation) error {
 	// 更新数据库中的记录
@@ -19,15 +25,19 @@ func (lotteryStations) Get(form *model.LotteryStation) error {
 }
 
 // list 获取多个项目列表
-func (lotteryStations) List(page *model.Page, list *[]model.LotteryStation) error {
+func (lotteryStations) List(params *model.Params, list *[]model.LotteryStationVo) error {
 	// 分页查询
 	cs.Sql.ShowSQL(true)
-	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Desc("created_at").FindAndCount(list); err != nil {
-		return err
-	} else {
-		page = page.GetPager(cnt)
+	result := cs.Sql.SQL(selectSqlParam, params.Lat, params.Lat, params.Lng, params.Distance).Limit(params.Limit(), params.Skip()).Query()
+	log.Println(result)
+	mapVal, err := result.List()
+	if err != nil {
+		log.Print("err", err)
 	}
-
+	err = mapstructure.Decode(mapVal, list)
+	if err != nil {
+		log.Print("err", err)
+	}
 	return nil
 }
 

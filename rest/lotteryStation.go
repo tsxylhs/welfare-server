@@ -5,6 +5,7 @@ import (
 	"github.com/xuri/excelize/v2"
 	"log"
 	"lottery/welfare/model"
+	"lottery/welfare/reqUtils"
 	"lottery/welfare/service"
 	"path"
 	"strconv"
@@ -17,15 +18,15 @@ type lotteryStation int
 var LotteryStation lotteryStation
 
 func (lotteryStation) list(c *gin.Context) {
-
-	page := &model.Page{}
-	if err := c.BindJSON(page); err != nil {
+	param := &model.Params{}
+	if err := c.BindJSON(param); err != nil {
 		c.String(400, "id 参数错误")
 		c.Abort()
 		return
 	}
-	listlotteryStations := &[]model.LotteryStation{}
-	if err := service.LotteryStations.List(page, listlotteryStations); err != nil {
+
+	listlotteryStations := &[]model.LotteryStationVo{}
+	if err := service.LotteryStations.List(param, listlotteryStations); err != nil {
 		c.String(500, "id 参数错误")
 		c.Abort()
 		return
@@ -72,9 +73,6 @@ func (lotteryStation) delete(c *gin.Context) {
 
 }
 func (lotteryStation) save(c *gin.Context) {
-
-}
-func (lotteryStation) updatelotteryStation(c *gin.Context) {
 
 }
 func (lottery) uploadFile(c *gin.Context) {
@@ -128,6 +126,7 @@ func (lottery) uploadFile(c *gin.Context) {
 			}
 
 		}
+		reqUtils.BaiduMap.BaiduMapAddrToLat(lotteryStation)
 		if err := service.LotteryStations.Save(lotteryStation); err != nil {
 			log.Print(err.Error())
 			log.Print("入库失败")
@@ -137,12 +136,9 @@ func (lottery) uploadFile(c *gin.Context) {
 
 }
 
+//彩票店
 func (lotteryStation) Register(r *gin.RouterGroup) {
-	r.POST("/v1/lotteryStation/update", LotteryStation.updatelotteryStation)
 	r.GET("/v1/lotteryStation", LotteryStation.list)
 	r.GET("/v1/lotteryStation/:id", LotteryStation.get)
-	r.PUT("/v1/lotteryStation/:id", LotteryStation.put)
-	r.DELETE("/v1/lotteryStation/:id", LotteryStation.delete)
-	r.POST("/v1/lotteryStation", LotteryStation.save)
 	r.POST("/v1/lotteryStation/uploadFile", Lottery.uploadFile)
 }

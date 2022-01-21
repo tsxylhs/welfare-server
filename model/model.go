@@ -33,8 +33,9 @@ type LotteryStation struct {
 	Location string  `xorm:"location" form:"location"`
 	ImageUrl string  `xorm:"image_url" form:"image_url"`
 	Mobile   string  `json:"mobile" form:"mobile"`
-	Lot      float64 `xorm:"lot" form:"lot"` //经度
+	Lng      float64 `xorm:"Lng" form:"Lng"` //经度
 	Lat      float64 `xorm:"lat" form:"lat"`
+	Distance int     `xorm:"distance" form:"distance"`
 }
 
 //兑奖记录
@@ -152,6 +153,13 @@ func NewBD() {
 	}
 }
 
+type Params struct {
+	UseId    string  `json:"useId" from:"userId"`
+	Lng      float64 `json:"lng" form:"lng"`
+	Lat      float64 `json:"lat" form:"lat"`
+	Distance int     `json:"distance" form:"distance"`
+	Page
+}
 type Page struct {
 	P   int    `json:"p" form:"p"`
 	Ps  int    `json:"ps" form:"ps"`

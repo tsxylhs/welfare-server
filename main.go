@@ -36,7 +36,7 @@ func main() {
 	//启动基础的Http服务
 	app := gin.Default()
 	root := app.Group("/api")
-	root.Use(middleware.CorsHandler())
+	root.Use(middleware.CorsHandler(), middleware.Middleware())
 	router.Register(root, wechat.User)
 	router.Register(root, rest.Lottery)
 	router.Register(root, rest.LotteryStation)

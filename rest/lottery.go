@@ -74,7 +74,7 @@ func (lottery) updatelottery(c *gin.Context) {
 
 }
 
-//彩票店
+//彩票
 func (lottery) Register(r *gin.RouterGroup) {
 	r.POST("/v1/lottery/update", Lottery.updatelottery)
 	r.GET("/v1/lottery", Lottery.list)
