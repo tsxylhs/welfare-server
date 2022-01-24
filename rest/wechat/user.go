@@ -13,11 +13,20 @@ type user int
 var User user
 
 func (user) login(c *gin.Context) {
-	form := &model.User{}
-	if err := c.Bind(form); err != nil {
+	param := &model.UserVo{}
+	if err := c.Bind(param); err != nil {
 		c.String(400, "参数错误")
 		c.Abort()
 	}
+	form := &model.User{}
+	form.City = param.UserInfo.City
+
+	form.AvatarUrl = param.UserInfo.AvatarURL
+	form.NickName = param.UserInfo.NickName
+	form.Iv = param.Iv
+	form.Signature = param.Signature
+	form.EncryptedData = param.EncryptedData
+	form.OpenId = param.CloudID
 	if err := service.User.Login(form); err != nil {
 		c.String(500, "内部服务器错误")
 		c.Abort()
