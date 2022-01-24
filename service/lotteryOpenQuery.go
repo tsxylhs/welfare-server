@@ -55,10 +55,23 @@ func (t lotteryOpenQuerys) Delete(form *model.LotteryOpenQuery) error {
 // Receive 保存记录
 func (t lotteryOpenQuerys) Save(form *model.LotteryOpenQuery) error {
 	if form.ID == 0 {
+		form.BeforeInsert()
 	}
 	if _, err := cs.Sql.Insert(form); err != nil {
 		return err
 	}
-
 	return nil
+}
+
+func (lotteryOpenQuerys) Query(form *model.SelectQuery) (error error, lotteryOpenQuerys *[]model.LotteryOpenQuery) {
+	// 更新数据库中的记录
+	lotterys := &[]model.LotteryOpenQuery{}
+	count, err := cs.Sql.Where("lottery_no=?", form.LotteryNo).And("lottery_id=?", form.LotteryId).FindAndCount(lotterys)
+	if err != nil {
+		return err, nil
+	}
+	if count > 0 {
+		return nil, lotterys
+	}
+	return nil, nil
 }

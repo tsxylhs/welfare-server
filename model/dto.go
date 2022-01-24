@@ -7,6 +7,6 @@ type SelectLottery struct {
 }
 
 type SelectQuery struct {
-	LotteryId string `form:"lotteryId"`
-	LotteryNo string `form:"lotteryNo"`
+	LotteryId string `form:"lotteryId" json:"lotteryId"`
+	LotteryNo string `form:"lotteryNo" json:"lotteryNo"`
 }

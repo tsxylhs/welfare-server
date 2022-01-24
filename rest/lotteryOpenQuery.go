@@ -1,14 +1,16 @@
 package rest
 
 import (
-	"fmt"
+	"log"
 	"lottery/welfare/model"
+	"lottery/welfare/reqUtils"
 	"lottery/welfare/service"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
+//开奖查询
 type lotteryOpenQuery int
 
 var LotteryOpenQuery lotteryOpenQuery
@@ -47,39 +49,33 @@ func (lotteryOpenQuery) get(c *gin.Context) {
 	}
 	c.JSON(200, form)
 }
-func (lotteryOpenQuery) put(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
-	if err != nil {
-		c.String(400, "id 参数错误")
-		c.Abort()
-		return
+func (lotteryOpenQuery) open(c *gin.Context) {
+	//开奖查询
+	selectQuery := &model.SelectQuery{}
+	if err := c.BindJSON(selectQuery); err != nil {
+		log.Println("err", err.Error())
+		c.String(400, "参数错误！")
 	}
-	fmt.Print(id)
-}
-func (lotteryOpenQuery) delete(c *gin.Context) {
-	id, err := strconv.ParseInt(c.Param("id"), 10, 64)
+	err, form := service.LotteryOpenQuerys.Query(selectQuery)
 	if err != nil {
-
-		c.String(400, "id 参数错误")
-		c.Abort()
-		return
+		c.String(500, "查询错误！")
 	}
-	fmt.Print(id)
+	if form != nil {
+		c.JSON(200, (*form)[0])
+	} else {
+		res := reqUtils.LotteryReq.LotteryQuery(selectQuery)
 
-}
-func (lotteryOpenQuery) save(c *gin.Context) {
-
-}
-func (lotteryOpenQuery) updatelotteryOpenQuery(c *gin.Context) {
-
+		if err := service.LotteryOpenQuerys.Save(&res.LotteryOpenQuery); err != nil {
+			log.Println("err", err.Error())
+			c.String(500, "查询接口入库失败")
+		}
+		c.JSON(200, res.LotteryOpenQuery)
+	}
 }
 
 //开奖查询
 func (lotteryOpenQuery) Register(r *gin.RouterGroup) {
-	r.POST("/v1/lotteryOpenQuery/update", LotteryOpenQuery.updatelotteryOpenQuery)
 	r.GET("/v1/lotteryOpenQuery", LotteryOpenQuery.list)
 	r.GET("/v1/lotteryOpenQuery/:id", LotteryOpenQuery.get)
-	r.PUT("/v1/lotteryOpenQuery/:id", LotteryOpenQuery.put)
-	r.DELETE("/v1/lotteryOpenQuery/:id", LotteryOpenQuery.delete)
-	r.POST("/v1/lotteryOpenQuery", LotteryOpenQuery.save)
+	r.POST("/v1/lotteryOpenQuery", LotteryOpenQuery.open)
 }

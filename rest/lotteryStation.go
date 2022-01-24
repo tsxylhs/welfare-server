@@ -13,6 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//彩票站
 type lotteryStation int
 
 var LotteryStation lotteryStation

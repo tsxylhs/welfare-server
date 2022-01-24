@@ -9,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//彩票
 type lottery int
 
 var Lottery lottery

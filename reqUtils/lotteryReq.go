@@ -84,7 +84,7 @@ func (lotteryReq) LotteryBonus(selectlottery *model.SelectLottery) (resp *model.
 }
 
 //历史开奖查询
-func (lotteryReq) LotteryQuery(selectQuery model.SelectQuery) (resp *reqModel.LotteryQuery) {
+func (lotteryReq) LotteryQuery(selectQuery *model.SelectQuery) (resp *reqModel.LotteryQuery) {
 	params := url.Values{}
 	params.Set("key", lotteryKey)
 	params.Set("lottery_id", selectQuery.LotteryId)
