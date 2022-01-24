@@ -68,20 +68,12 @@ func (lottery) delete(c *gin.Context) {
 	fmt.Print(id)
 
 }
-func (lottery) save(c *gin.Context) {
-
-}
-func (lottery) updatelottery(c *gin.Context) {
-
-}
 
 //彩票
 func (lottery) Register(r *gin.RouterGroup) {
-	r.POST("/v1/lottery/update", Lottery.updatelottery)
 	r.GET("/v1/lottery", Lottery.list)
 	r.GET("/v1/lottery/:id", Lottery.get)
 	r.PUT("/v1/lottery/:id", Lottery.put)
 	r.DELETE("/v1/lottery/:id", Lottery.delete)
-	r.POST("/v1/lottery", Lottery.save)
 
 }
