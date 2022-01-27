@@ -81,23 +81,6 @@ type MyLottery struct {
 	Number    string `xorm:"number" form:"number"` //购彩记录
 	Tag       string `xorm:"tag" form:"tag"`
 }
-type UserVo struct {
-	ErrMsg   string `json:"errMsg"`
-	RawData  string `json:"rawData"`
-	UserInfo struct {
-		NickName  string `json:"nickName"`
-		Gender    int    `json:"gender"`
-		Language  string `json:"language"`
-		City      string `json:"city"`
-		Province  string `json:"province"`
-		Country   string `json:"country"`
-		AvatarURL string `json:"avatarUrl"`
-	} `json:"userInfo"`
-	Signature     string `json:"signature"`
-	EncryptedData string `json:"encryptedData"`
-	Iv            string `json:"iv"`
-	CloudID       string `json:"cloudID"`
-}
 
 //微信用户
 type User struct {
@@ -174,7 +157,7 @@ type Params struct {
 	UseId    string  `json:"useId" from:"userId"`
 	Lng      float64 `json:"lng" form:"lng"`
 	Lat      float64 `json:"lat" form:"lat"`
-	Distance int     `json:"distance" form:"distance"`
+	Distance int     `json:"dis" form:"dis"`
 	Page
 }
 type Page struct {

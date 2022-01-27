@@ -20,7 +20,7 @@ var LotteryStation lotteryStation
 
 func (lotteryStation) list(c *gin.Context) {
 	param := &model.Params{}
-	if err := c.BindJSON(param); err != nil {
+	if err := c.Bind(param); err != nil {
 		c.String(400, "id 参数错误")
 		c.Abort()
 		return
@@ -33,6 +33,7 @@ func (lotteryStation) list(c *gin.Context) {
 		return
 	}
 	r := map[string]interface{}{}
+	r["page"] = param.Page
 	r["data"] = listlotteryStations
 	c.JSON(200, r)
 
