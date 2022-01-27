@@ -8,7 +8,7 @@ import (
 )
 
 func Timer() {
-	selectQuery := model.SelectQuery{}
+	selectQuery := &model.SelectQuery{}
 	selectQuery.LotteryId = "ssq"
 	selectQuery.LotteryNo = "22001"
 	resp := reqUtils.LotteryReq.LotteryQuery(selectQuery)
