@@ -7,13 +7,13 @@ import (
 )
 
 func Test_lotteryTypes(t *testing.T) {
-	LotteryReq.LotteryTypes()
 	t.Log()
+	LotteryReq.LotteryTypes()
 }
 func Test_lotteryBouns(t *testing.T) {
 	selectlottery := &model.SelectLottery{}
 	res := LotteryReq.LotteryBonus(selectlottery)
-	log.Fatal(res.LotteryPrize...)
+	log.Fatal(res.LotteryPrize)
 	t.Log()
 }
 

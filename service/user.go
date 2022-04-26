@@ -20,6 +20,7 @@ var User user
 type user int
 
 func (user) Get(form *model.User) error {
+
 	// 更新数据库中的记录
 	if _, err := cs.Sql.ID(form.ID).Get(form); err != nil {
 		return err
@@ -27,6 +28,7 @@ func (user) Get(form *model.User) error {
 
 	return nil
 }
+
 
 // list 获取多个项目列表
 func (user) List(form *model.User, page *model.Page, list *[]model.User) error {

@@ -12,8 +12,8 @@ var idgen *snowflake.Node
 
 type Base struct {
 	ID        int64     `xorm:"pk  'id'" json:"id,string" form:"id"`
-	UpdatedAt time.Time `xorm:"updated" json:"updatedAt"`
-	CreatedAt time.Time `xorm:"created" json:"createdAt"`
+	UpdatedAt time.Time `xorm:"updated" json:"updated_at"`
+	CreatedAt time.Time `xorm:"created" json:"created_at"`
 	DeletedAt time.Time `xorm:"deleted" json:"-"`
 }
 
@@ -157,6 +157,7 @@ type Params struct {
 	UseId    string  `json:"useId" from:"userId"`
 	Lng      float64 `json:"lng" form:"lng"`
 	Lat      float64 `json:"lat" form:"lat"`
+	Name     string  `json:"name" form:"name"`
 	Distance int     `json:"dis" form:"dis"`
 	Page
 }

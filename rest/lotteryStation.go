@@ -2,13 +2,14 @@ package rest
 
 import (
 	"fmt"
-	"github.com/xuri/excelize/v2"
 	"log"
 	"lottery/welfare/model"
 	"lottery/welfare/reqUtils"
 	"lottery/welfare/service"
 	"path"
 	"strconv"
+
+	"github.com/xuri/excelize/v2"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,8 +34,10 @@ func (lotteryStation) list(c *gin.Context) {
 		return
 	}
 	r := map[string]interface{}{}
-	r["page"] = param.Page
-	r["data"] = listlotteryStations
+	if len(*listlotteryStations) > 0 {
+		r["data"] = listlotteryStations
+		r["page"] = param.Page
+	}
 	c.JSON(200, r)
 
 }
