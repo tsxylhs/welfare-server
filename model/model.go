@@ -137,18 +137,18 @@ type Awarding struct {
 	PrizeMsg       string        `json:"prize_msg"`
 	LotteryPrize   []interface{} `json:"lottery_prize"`
 }
+type LuckyData struct {
+	Base          `xorm:"extends"`
+	UserId        string      `xorm:"user_id" json:"user_id"`
+	Type          string      `json:type`
+	LuckyData     interface{} `xorm:"lucky_data" json:'lucky_data'`
+	HitCount      int         `xorm:"hit_count" json:"hit_count"`
+	WinningAmount string      `xorm:"winning_amount" json:"winning_amount"`
+}
 
 func NewBD() {
 	if err := cs.Sql.Sync(
-		new(User),
-		new(Lottery),
-		new(LotteryStation),
-		new(LotteryOpenMessage),
-		new(LotteryOpenQuery),
-		new(LotteryPrize),
-		new(Awarding),
-		new(MyLottery),
-		new(Message)); err != nil {
+		new(LuckyData)); err != nil {
 		fmt.Print("初始化失败", err)
 	}
 }

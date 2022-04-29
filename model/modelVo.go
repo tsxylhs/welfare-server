@@ -10,3 +10,7 @@ type LotteryStationVo struct {
 	Lat       float64 `xorm:"lat" form:"lat" json:"lat"`
 	Distance  int     `xorm:"distance" form:"distance" json:"distance"`
 }
+type LuckyDataVo struct {
+	UserId string `json:"user_id" form:"user_id"`
+	Ty     string `json:"ty" form:"ty"`
+}

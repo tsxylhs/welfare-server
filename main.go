@@ -43,6 +43,7 @@ func main() {
 	router.Register(root, rest.Message)
 	router.Register(root, rest.Awarding)
 	router.Register(root, rest.LotteryOpenQuery)
+	router.Register(root, rest.Lucky)
 	//reqUtils.LotteryReq.LotteryTypes()
 	server := &http.Server{
 		Addr:         ":3001",
