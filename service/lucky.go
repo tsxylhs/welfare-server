@@ -13,19 +13,29 @@ type lucky int
 var Lucky lucky
 
 func (lucky) InsertLuckyData(lucky *model.LuckyDataVo) (err error, val []int) {
-	luckyData := &model.LuckyData{}
-	luckyData.Base.BeforeInsert()
-	luckyData.UserId = lucky.UserId
-	//生成数字
 	val = generateData(lucky.Ty)
-
-	luckyData.Type = lucky.Ty
-	jval, _ := json.Marshal(val)
-	luckyData.LuckyData = string(jval)
-	if _, err := cs.Sql.Insert(luckyData); err != nil {
-		return err, val
-	}
 	return nil, val
+}
+
+func (lucky) Save(lucky *model.LuckyData) (err error) {
+	lucky.Base.BeforeInsert()
+	jval, _ := json.Marshal(lucky.LuckyData)
+	lucky.LuckyData = string(jval)
+	if _, err := cs.Sql.Insert(lucky); err != nil {
+		return err
+	}
+	return nil
+}
+func (lucky) List(page *model.Page, list *[]model.LuckyDataV) error {
+	// 分页查询
+	cs.Sql.ShowSQL(true)
+	if cnt, err := cs.Sql.Table("lucky_data").Limit(page.Limit(), page.Skip()).Where("user_id=?", page.UserId).FindAndCount(list); err != nil {
+		return err
+	} else {
+		page = page.GetPager(cnt)
+	}
+
+	return nil
 }
 func generateData(ty string) []int {
 	switch ty {

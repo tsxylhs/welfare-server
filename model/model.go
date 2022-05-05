@@ -140,8 +140,8 @@ type Awarding struct {
 type LuckyData struct {
 	Base          `xorm:"extends"`
 	UserId        string      `xorm:"user_id" json:"user_id"`
-	Type          string      `json:type`
-	LuckyData     interface{} `xorm:"lucky_data" json:'lucky_data'`
+	Type          string      `json:"type" form:"type"`
+	LuckyData     interface{} `xorm:"lucky_data" json:"lucky_data"`
 	HitCount      int         `xorm:"hit_count" json:"hit_count"`
 	WinningAmount string      `xorm:"winning_amount" json:"winning_amount"`
 }
@@ -162,12 +162,13 @@ type Params struct {
 	Page
 }
 type Page struct {
-	P   int    `json:"p" form:"p"`
-	Ps  int    `json:"ps" form:"ps"`
-	Cnt int64  `json:"cnt"`
-	K   string `json:"k"`
-	Pc  int    `json:"pc"`
-	Od  string `json:"od,omitempty"`
+	P      int    `json:"p" form:"p"`
+	Ps     int    `json:"ps" form:"ps"`
+	Cnt    int64  `json:"cnt"`
+	K      string `json:"k"`
+	UserId string `json:"user_id" form:"user_id"`
+	Pc     int    `json:"pc"`
+	Od     string `json:"od,omitempty"`
 }
 
 func (page *Page) GetPage() *Page {
