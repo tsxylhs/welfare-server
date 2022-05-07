@@ -16,6 +16,20 @@ func (lucky) InsertLuckyData(lucky *model.LuckyDataVo) (err error, val []int) {
 	val = generateData(lucky.Ty)
 	return nil, val
 }
+func (lucky) Get(id int64, lucky *[]model.LuckyDataV) error {
+	if err := cs.Sql.Table("lucky_data").Where("id=?", id).Find(lucky); err != nil {
+		return err
+	}
+	return nil
+}
+func (lucky) Update(lucky *model.LuckyDataV) error {
+	lucky.WinningAmount = "-1"
+	cs.Sql.ShowSQL(true)
+	if _, err := cs.Sql.Table("lucky_data").ID(lucky.ID).Update(lucky); err != nil {
+		return err
+	}
+	return nil
+}
 
 func (lucky) Save(lucky *model.LuckyData) (err error) {
 	lucky.Base.BeforeInsert()
@@ -40,7 +54,10 @@ func (lucky) List(page *model.Page, list *[]model.LuckyDataV) error {
 func generateData(ty string) []int {
 	switch ty {
 	case "1":
-		return generateRandomNumber(1, 33, 7)
+		r := rand.New(rand.NewSource(time.Now().UnixNano()))
+		val := generateRandomNumber(1, 33, 7)
+		val[6] = r.Intn((16 - 0)) + 0
+		return val
 	case "2":
 		return generateRandomNumber3D(0, 9, 3)
 	case "3":

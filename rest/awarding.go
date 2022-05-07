@@ -17,7 +17,7 @@ type awarding int
 var Awarding awarding
 
 func (awarding) list(c *gin.Context) {
-	libraryid, err := strconv.ParseInt(c.Query("libraryId"), 10, 64)
+	userId, err := strconv.ParseInt(c.Query("user_id"), 10, 64)
 	if err != nil {
 		c.String(400, "id 参数错误")
 		c.Abort()
@@ -30,7 +30,7 @@ func (awarding) list(c *gin.Context) {
 		return
 	}
 	listawardings := &[]model.Awarding{}
-	if err := service.Awardings.List(libraryid, page, listawardings); err != nil {
+	if err := service.Awardings.List(userId, page, listawardings); err != nil {
 		c.String(500, "id 参数错误")
 		c.Abort()
 		return

@@ -22,7 +22,7 @@ func (awardings) Get(form *model.Awarding) error {
 func (awardings) List(id int64, page *model.Page, list *[]model.Awarding) error {
 	// 分页查询
 	cs.Sql.ShowSQL(true)
-	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Where("library_id=?", id).Desc("created_at").FindAndCount(list); err != nil {
+	if cnt, err := cs.Sql.Limit(page.Limit(), page.Skip()).Where("user_id=?", id).Desc("created_at").FindAndCount(list); err != nil {
 		return err
 	} else {
 		page = page.GetPager(cnt)

@@ -42,7 +42,7 @@ type LotteryStation struct {
 type LotteryOpenMessage struct {
 	Base              `xorm:"extends"`
 	LotteryId         string       `json:"lottery_id" form:"lottery_id"`
-	LotteryName       string       `json: "lottery_name" form: "lottery_name"`
+	LotteryName       string       `json:"lottery_name" form:"lottery_name"`
 	LotteryRes        string       `json:"lottery_res" form:"lottery_res"`
 	LotteryNo         string       `json:"lottery_no" form:"lottery_no"`
 	LotteryDate       string       `json:"lottery_date" form:"lottery_date"`
@@ -56,7 +56,7 @@ type LotteryOpenMessage struct {
 type LotteryOpenQuery struct {
 	Base              `xorm:"extends"`
 	LotteryId         string         `json:"lottery_id" form:"lottery_id"`
-	LotteryName       string         `json: "lottery_name" form: "lottery_name"`
+	LotteryName       string         `json:"lottery_name" form:"lottery_name"`
 	LotteryRes        string         `json:"lottery_res" form:"lottery_res"`
 	LotteryNo         string         `json:"lottery_no" form:"lottery_no"`
 	LotteryDate       string         `json:"lottery_date" form:"lottery_date"`
@@ -136,6 +136,7 @@ type Awarding struct {
 	IsPrize        string        `json:"is_prize"`
 	PrizeMsg       string        `json:"prize_msg"`
 	LotteryPrize   []interface{} `json:"lottery_prize"`
+	UserId         string        `json:"user_id" form:"user_id"`
 }
 type LuckyData struct {
 	Base          `xorm:"extends"`
@@ -148,7 +149,7 @@ type LuckyData struct {
 
 func NewBD() {
 	if err := cs.Sql.Sync(
-		new(LuckyData)); err != nil {
+		new(Awarding)); err != nil {
 		fmt.Print("初始化失败", err)
 	}
 }

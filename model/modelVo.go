@@ -24,3 +24,8 @@ type LuckyDataV struct {
 	HitCount      int    `xorm:"hit_count" json:"hit_count"`
 	WinningAmount string `xorm:"winning_amount" json:"winning_amount"`
 }
+
+type CheckLuckyVo struct {
+	Issue       string `json:"issue" form:"issue"`
+	LuckyDataID string `json:"lucky_data_id" form:"lucky_data_id"`
+}
