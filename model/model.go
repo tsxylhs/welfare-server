@@ -17,7 +17,7 @@ type Base struct {
 	DeletedAt time.Time `xorm:"deleted" json:"-"`
 }
 
-//彩票类型
+// 彩票类型
 type Lottery struct {
 	Base          `xorm:"extends"`
 	LotteryId     string `json:"lottery_id" form:"lottery_id"`
@@ -26,7 +26,7 @@ type Lottery struct {
 	Remarks       string `json:"remarks" form:"remarks"`
 }
 
-//彩票站
+// 彩票站
 type LotteryStation struct {
 	Base     `xorm:"extends"`
 	Name     string  `xorm:"name" form:"name"`
@@ -38,7 +38,7 @@ type LotteryStation struct {
 	Distance int     `xorm:"distance" form:"distance"`
 }
 
-//兑奖记录
+// 兑奖记录
 type LotteryOpenMessage struct {
 	Base              `xorm:"extends"`
 	LotteryId         string       `json:"lottery_id" form:"lottery_id"`
@@ -52,7 +52,7 @@ type LotteryOpenMessage struct {
 	LotteryPrize      LotteryPrize `json:"lottery_prize" form:"lottery_prize"`
 }
 
-//开奖记录查询
+// 开奖记录查询
 type LotteryOpenQuery struct {
 	Base              `xorm:"extends"`
 	LotteryId         string         `json:"lottery_id" form:"lottery_id"`
@@ -73,7 +73,7 @@ type LotteryPrize struct {
 	PirzeRequire string `json:"prize_require" form:"prize_require"`
 }
 
-//我的彩票
+// 我的彩票
 type MyLottery struct {
 	Base      `xorm:"extends"`
 	UserId    int64  `xorm:"user_id" form:"userId"`
@@ -82,7 +82,7 @@ type MyLottery struct {
 	Tag       string `xorm:"tag" form:"tag"`
 }
 
-//微信用户
+// 微信用户
 type User struct {
 	Base          `xorm:"extends"`
 	Username      string `json:"username" form:"username"`
@@ -149,6 +149,15 @@ type LuckyData struct {
 
 func NewBD() {
 	if err := cs.Sql.Sync(
+		new(MyLottery),
+		new(LotteryPrize),
+		new(Lottery),
+
+		new(LotteryOpenQuery),
+		new(Message),
+		new(LotteryStation),
+		new(User),
+		new(LuckyData),
 		new(Awarding)); err != nil {
 		fmt.Print("初始化失败", err)
 	}

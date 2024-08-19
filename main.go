@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"lottery/welfare/cs"
 	"lottery/welfare/middleware"
-	"lottery/welfare/model"
 	"lottery/welfare/rest"
 	"lottery/welfare/rest/wechat"
 	"lottery/welfare/router"
@@ -32,7 +31,7 @@ func main() {
 		panic(err)
 	}
 	//首次运行时加载
-	model.NewBD()
+	//model.NewBD()
 	//启动基础的Http服务
 	app := gin.Default()
 	root := app.Group("/api")

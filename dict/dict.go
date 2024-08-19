@@ -9,6 +9,6 @@ const (
 
 const (
 	// 彩票小程序
-	LibrarayId    = "wxf18ea67803d92fcd"
-	LibrarySecret = "95fcccc4a80190e1167558245a82e81b"
+	LibrarayId    = "wxe863950d7a4f8ac0"
+	LibrarySecret = "2f12460a03b3701369020bd36a0279a1"
 )
